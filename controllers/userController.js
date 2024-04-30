@@ -1,6 +1,7 @@
 const User = require("../entities/User");
 const dataSource = require("../db/datasource");
-const { getRepository } = require("typeorm");
+const bcrypt = require("bcrypt");
+
 const getAllUsers = async (req, res) => {
   try {
     const allUsers = await dataSource
@@ -18,6 +19,9 @@ const createUser = async (req, res) => {
   try {
     const { firstName, lastName, address, email, phone, password } = req.body;
 
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = await dataSource
       .createQueryBuilder()
       .insert()
@@ -28,7 +32,7 @@ const createUser = async (req, res) => {
         address: address,
         email: email,
         phone: phone,
-        password: password,
+        password: hashedPassword, // Pass the hashed password to the query
       })
       .execute();
 
