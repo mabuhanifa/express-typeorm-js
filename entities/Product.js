@@ -19,10 +19,10 @@ module.exports = new EntitySchema({
       type: "text",
     },
     price: {
-      type: "double",
+      type: "double precision",
     },
     rentPrice: {
-      type: "double",
+      type: "double precision",
     },
     rentOption: {
       type: "enum",

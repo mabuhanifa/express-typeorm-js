@@ -1,14 +1,10 @@
 const { Router } = require("express");
+const {
+  getAllProducts,
+  createProduct,
+} = require("../controllers/productController");
 const router = Router();
 
-router.route("/").get(async (req, res) => {
-  try {
-    res.send({
-      res: "product",
-    });
-  } catch (error) {
-    res.send(error.message);
-  }
-});
+router.route("/").get(getAllProducts).post(createProduct);
 
 module.exports = router;
