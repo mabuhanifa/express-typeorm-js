@@ -42,7 +42,7 @@ module.exports = new EntitySchema({
   },
   relations: {
     user: {
-      target: "User", // Assuming the name of the User entity is "User"
+      target: "User",
       type: "many-to-one",
       joinColumn: true,
       onDelete: "CASCADE",

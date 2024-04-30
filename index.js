@@ -6,6 +6,7 @@ const port = process.env.PORT || 3000;
 const dataSource = require("./db/datasource");
 const userRoutes = require("./routes/userRoute");
 const authRoutes = require("./routes/authRoute");
+const productRoutes = require("./routes/productRoute");
 
 app.use(express.json());
 app.use(cors());
@@ -13,6 +14,7 @@ app.use(cors());
 // routes
 app.use("/user", userRoutes);
 app.use("/auth", authRoutes);
+app.use("/product", productRoutes);
 
 dataSource
   .initialize()
