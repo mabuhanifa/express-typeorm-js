@@ -21,7 +21,9 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid password" });
     }
 
-    res.status(200).json({ message: "Login successful", user: user.email });
+    res
+      .status(200)
+      .json({ message: "Login successful", user: { email: user.email } });
   } catch (error) {
     res.send(error.message);
   }

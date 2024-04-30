@@ -32,7 +32,7 @@ const createUser = async (req, res) => {
         address: address,
         email: email,
         phone: phone,
-        password: hashedPassword, // Pass the hashed password to the query
+        password: hashedPassword,
       })
       .execute();
 
