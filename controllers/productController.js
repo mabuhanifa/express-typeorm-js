@@ -1,6 +1,7 @@
 const dataSource = require("../db/datasource");
 const Product = require("../entities/Product");
 const ProductStatus = require("../entities/ProductStatus");
+const User = require("../entities/User");
 
 const getAllProducts = async (req, res) => {
   try {
@@ -75,9 +76,7 @@ const getSingleProduct = async (req, res) => {
     const productId = req.params.productId;
 
     const product = await dataSource
-      .getRepository(Product)
-      .createQueryBuilder("product")
-      //   .leftJoinAndSelect("product.createdBy", "user")
+      .createQueryBuilder(Product, "product")
       .where("product.id = :productId", { productId: productId })
       .getOne();
 
@@ -85,7 +84,14 @@ const getSingleProduct = async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    res.json({ product });
+    const user = await dataSource
+      .createQueryBuilder(User, "user")
+      .where("user.id = :userId", { userId: product.createdBy })
+      .getOne();
+
+    const productWithUser = { ...product, creator: user };
+
+    res.json({ product: productWithUser });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
