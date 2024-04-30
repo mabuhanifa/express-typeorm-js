@@ -29,4 +29,30 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { login };
+const register = async (req, res) => {
+  try {
+    const { firstName, lastName, address, email, phone, password } = req.body;
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await dataSource
+      .createQueryBuilder()
+      .insert()
+      .into(User)
+      .values({
+        firstName: firstName,
+        lastName: lastName,
+        address: address,
+        email: email,
+        phone: phone,
+        password: hashedPassword,
+      })
+      .execute();
+
+    res.json({ newUser });
+  } catch (error) {
+    res.send(error);
+  }
+};
+module.exports = { login, register };

@@ -30,13 +30,13 @@ module.exports = new EntitySchema({
   },
   relations: {
     product: {
-      target: "Product", // Assuming the name of the Product entity is "Product"
+      target: "Product",
       type: "many-to-one",
       joinColumn: true,
       onDelete: "CASCADE",
     },
     user: {
-      target: "User", // Assuming the name of the User entity is "User"
+      target: "User",
       type: "many-to-one",
       joinColumn: true,
       onDelete: "CASCADE",
