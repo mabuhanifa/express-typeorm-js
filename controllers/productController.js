@@ -1,5 +1,6 @@
 const dataSource = require("../db/datasource");
 const Product = require("../entities/Product");
+const ProductStatus = require("../entities/ProductStatus");
 
 const getAllProducts = async (req, res) => {
   try {
@@ -46,7 +47,31 @@ const createProduct = async (req, res) => {
   }
 };
 
+const updateProductStatus = async (req, res) => {
+  try {
+    const { productId, status, rentFrom, rentTo, userId } = req.body;
+
+    const updatedProductStatus = await dataSource
+      .createQueryBuilder()
+      .insert()
+      .into(ProductStatus)
+      .values({
+        productId: productId,
+        status: status,
+        rentFrom: rentFrom,
+        rentTo: rentTo,
+        userId: userId,
+      })
+      .execute();
+
+    res.json({ updatedProductStatus });
+  } catch (error) {
+    res.send(error.message);
+  }
+};
+
 module.exports = {
   getAllProducts,
   createProduct,
+  updateProductStatus,
 };

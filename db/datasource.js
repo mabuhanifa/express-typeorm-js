@@ -5,7 +5,11 @@ var dataSource = new typeorm.DataSource({
   type: "postgres",
   url: process.env.DB_URI,
   synchronize: true,
-  entities: [require("../entities/User"), require("../entities/Product")],
+  entities: [
+    require("../entities/User"),
+    require("../entities/Product"),
+    require("../entities/ProductStatus"),
+  ],
 });
 
 module.exports = dataSource;
