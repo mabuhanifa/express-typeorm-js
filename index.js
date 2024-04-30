@@ -3,7 +3,7 @@ require("dotenv").config();
 const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3000;
-const dataSource = require("./db/typeorm");
+const dataSource = require("./db/datasource");
 
 app.use(express.json());
 app.use(cors());
@@ -16,6 +16,7 @@ dataSource
   .catch(function (error) {
     console.log("Error: ", error);
   });
+
 app.listen(port, (req, res) => {
   console.log(`App Running on PORT ${port}`);
 });
