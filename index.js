@@ -5,11 +5,14 @@ const app = express();
 const port = process.env.PORT || 3000;
 const dataSource = require("./db/datasource");
 const userRoutes = require("./routes/userRoute");
+const authRoutes = require("./routes/authRoute");
+
 app.use(express.json());
 app.use(cors());
 
 // routes
 app.use("/user", userRoutes);
+app.use("/auth", authRoutes);
 
 dataSource
   .initialize()
