@@ -4,9 +4,12 @@ const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3000;
 const dataSource = require("./db/datasource");
-
+const userRoutes = require("./routes/userRoute");
 app.use(express.json());
 app.use(cors());
+
+// routes
+app.use("/user", userRoutes);
 
 dataSource
   .initialize()
